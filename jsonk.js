@@ -17,7 +17,6 @@ proto.map = function(list, handler)
 	else
 	{
 		var result = {};
-
 		for(var i in list)
 		{
 			if (list.hasOwnProperty(i))
@@ -64,7 +63,7 @@ proto.escape = function(obj)
 	if (obj && obj.k && this._parsermap[obj.k])
 	{
 		return {
-			k: 'escape',
+			k: '__escape__',
 			v: obj
 		};
 	}
@@ -77,7 +76,7 @@ proto.escape = function(obj)
 proto.parse  = function(data)
 {
 	if (!data) return data;
-	if (data.k == 'escape')
+	if (data.k == '__escape__')
 	{
 		return self.map(data.v, function(item, key)
 			{
