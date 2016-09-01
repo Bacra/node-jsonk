@@ -99,7 +99,9 @@ proto._parseWidthoutUnescape = function(data)
 	{
 		var handler = self._parsermap[data.k];
 		if (handler)
-			return handler.parse.call(handler, self.parse(data.v), self);
+		{
+			return handler.parse.call(handler, data.v, self);
+		}
 	}
 
 	return self.map(data, function(item, key)
