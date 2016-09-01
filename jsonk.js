@@ -95,9 +95,11 @@ proto._parseWidthoutUnescape = function(data)
 	var self = this;
 	if (!data || typeof data != 'object') return data;
 
-	if (data.k && self._parsermap[data.k])
+	if (data.k)
 	{
-		return self._parsermap[data.k].parse(self.unescape(data.v), self);
+		var handler = self._parsermap[data.k];
+		if (handler)
+			return handler.parse.call(handler, self.parse(data.v), self);
 	}
 
 	return self.map(data, function(item, key)
