@@ -34,11 +34,11 @@ proto.stringify = function(data)
 	var result;
 	self.parsers.some(function(handler)
 	{
-		if (handler.is(item))
+		if (handler.is.call(handler, data))
 		{
 			result = {
 				k: handler.name,
-				v: self.escape(handler.stringify(item, self))
+				v: self.escape(handler.stringify.call(handler, data, self))
 			};
 
 			return true;
@@ -73,14 +73,25 @@ proto.escape = function(obj)
 	}
 };
 
-proto.unescape = function(obj)
-{
-	return obj && obj.k == 'escape' && obj.v ? obj.v : obj;
-};
-
 proto.parse  = function(data)
 {
-	return this._parseWidthoutUnescape(this.unescape(data));
+	if (!data) return data;
+	if (data.k == 'escape')
+	{
+		var isarr = Array.isArray(data);
+		var result = isarr ? [] : {};
+
+		self.each(data.v, isarr, function(item, key)
+		{
+			result[key] = self._parseWidthoutUnescape(item);
+		});
+
+		return result;
+	}
+	else
+	{
+		return this._parseWidthoutUnescape(data);
+	}
 }
 
 proto._parseWidthoutUnescape = function(data)
