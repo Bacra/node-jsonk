@@ -1,0 +1,15 @@
+{
+  "name": "jsonk",
+  "version": "0.0.1",
+  "description": "Common Extended JSON.",
+  "main": "jsonk.js",
+  "scripts": {
+    "test": "mocha test/test_*.js"
+  },
+  "keywords": [
+    "json",
+    "extend"
+  ],
+  "author": "bacra woo <bacra.woo@gmail.com>",
+  "license": "MIT"
+}

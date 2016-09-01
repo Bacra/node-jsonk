@@ -1,0 +1,12 @@
+node_modules
+
+.gitignore
+.travis.yml
+.gitattributes
+.eslintrc
+.editorconfig
+.npmignore
+
+test
+coverage
+
