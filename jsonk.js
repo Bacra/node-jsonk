@@ -8,21 +8,25 @@ function JsonK()
 
 var proto = JsonK.prototype;
 
-proto.each = function(list, isarr, handler)
+proto.map = function(list, handler)
 {
-	if (isarr)
+	if (Array.isArray(list))
 	{
-		list.forEach(handler);
+		return list.map(handler);
 	}
 	else
 	{
+		var result = {};
+
 		for(var i in list)
 		{
 			if (list.hasOwnProperty(i))
 			{
-				handler(list[i], i);
+				result[i] = handler(list[i], i);
 			}
 		}
+
+		return result;
 	}
 };
 
@@ -47,15 +51,12 @@ proto.stringify = function(data)
 
 	if (result) return result;
 
-	var isarr = Array.isArray(data);
-	result = isarr ? [] : {};
+	var result = self.map(data, function(item, key)
+		{
+			return self.stringify(item);
+		});
 
-	self.each(data, isarr, function(item, key)
-	{
-		result[key] = self.stringify(item);
-	});
-
-	return isarr ? result : self.escape(result);
+	return this.escape(result);
 };
 
 proto.escape = function(obj)
@@ -78,15 +79,10 @@ proto.parse  = function(data)
 	if (!data) return data;
 	if (data.k == 'escape')
 	{
-		var isarr = Array.isArray(data);
-		var result = isarr ? [] : {};
-
-		self.each(data.v, isarr, function(item, key)
-		{
-			result[key] = self._parseWidthoutUnescape(item);
-		});
-
-		return result;
+		return self.map(data.v, function(item, key)
+			{
+				return self._parseWidthoutUnescape(item);
+			});
 	}
 	else
 	{
@@ -104,15 +100,10 @@ proto._parseWidthoutUnescape = function(data)
 		return self._parsermap[data.k].parse(self.unescape(data.v), self);
 	}
 
-	var isarr = Array.isArray(data);
-	var result = isarr ? [] : {};
-
-	self.each(data, isarr, function(item, key)
-	{
-		result[key] = self.parse(item, self);
-	});
-
-	return result;
+	return self.map(data, function(item, key)
+		{
+			return self.parse(item, self);
+		});
 };
 
 proto.addParser = function(name, handler)
