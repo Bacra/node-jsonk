@@ -1,13 +1,13 @@
 "use strict";
 
 var expect = require('expect.js');
-var JSONK = require('../');
+var jk = require('../');
+var JSONK = jk.JSONK;
 
 describe('#base', function()
 {
 	it('#stringify', function()
 	{
-		var jk = new JSONK();
 		var data = {
 			string: 'string',
 			number: 11,
@@ -31,7 +31,6 @@ describe('#base', function()
 
 	it('#escape', function()
 	{
-		var jk = new JSONK();
 		expect(jk.stringify({k: '\\', v: {}}))
 			.to.be.eql({k: '\\', v: {k: '\\', v: {}}});
 	});
