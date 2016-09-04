@@ -31,6 +31,11 @@ proto.map = function(list, handler)
 
 proto.stringify = function(data)
 {
+	return this._stringify(data);
+};
+
+proto._stringify = function(data)
+{
 	var self = this;
 	if (!data || typeof data != 'object') return data;
 
@@ -73,7 +78,12 @@ proto.escape = function(obj)
 	}
 };
 
-proto.parse  = function(data)
+proto.parse = function(data)
+{
+	return this._parse(data);
+};
+
+proto._parse  = function(data)
 {
 	if (!data) return data;
 	if (data.k == '__escape__')
@@ -87,7 +97,7 @@ proto.parse  = function(data)
 	{
 		return this._parseWidthoutUnescape(data);
 	}
-}
+};
 
 proto._parseWidthoutUnescape = function(data)
 {
@@ -105,7 +115,7 @@ proto._parseWidthoutUnescape = function(data)
 
 	return self.map(data, function(item, key)
 		{
-			return self.parse(item, self);
+			return self._parse(item, self);
 		});
 };
 
