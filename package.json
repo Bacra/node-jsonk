@@ -4,12 +4,21 @@
   "description": "Common Extended JSON.",
   "main": "jsonk.js",
   "scripts": {
-    "test": "mocha test/test_*.js"
+    "test": "cross-env DEBUG=jsonk* mocha test/test_*",
+  	"test-cov": "istanbul cover ./node_modules/.bin/_mocha -- test/test_* --reporter dot",
+  	"test-travis": "istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- test/test_* --reporter dot"
   },
   "keywords": [
     "json",
     "extend"
   ],
   "author": "bacra woo <bacra.woo@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+     "cross-env": "^2.0.0",
+     "expect.js": "^0.3.1",
+     "express": "^4.6.0",
+     "istanbul": "^0.4.5",
+     "mocha": "^3.0.2"
+   }
 }
