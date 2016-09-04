@@ -28,4 +28,11 @@ describe('#base', function()
 			}
 		}
 	});
+
+	it('#escape', function()
+	{
+		var jk = new JSONK();
+		expect(jk.stringify({k: '__escape__', v: {}}))
+			.to.be.eql({k: '__escape__', v: {k: '__escape__', v: {}}});
+	});
 });

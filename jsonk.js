@@ -65,17 +65,19 @@ proto._stringify = function(data)
 
 proto.escape = function(obj)
 {
-	if (obj && obj.k && this._parsermap[obj.k])
+	if (obj && obj.k)
 	{
-		return {
-			k: '__escape__',
-			v: obj
-		};
+		if (this._parsermap[obj.k]
+			|| obj.k == '__escape__')
+		{
+			return {
+				k: '__escape__',
+				v: obj
+			};
+		}
 	}
-	else
-	{
-		return obj;
-	}
+
+	return obj;
 };
 
 proto.parse = function(data)
