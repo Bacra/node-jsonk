@@ -68,10 +68,10 @@ proto.escape = function(obj)
 	if (obj && obj.k)
 	{
 		if (this._parsermap[obj.k]
-			|| obj.k == '__escape__')
+			|| obj.k == '\\')
 		{
 			return {
-				k: '__escape__',
+				k: '\\',
 				v: obj
 			};
 		}
@@ -88,7 +88,7 @@ proto.parse = function(data)
 proto._parse  = function(data)
 {
 	if (!data) return data;
-	if (data.k == '__escape__')
+	if (data.k == '\\')
 	{
 		return self.map(data.v, function(item, key)
 			{
