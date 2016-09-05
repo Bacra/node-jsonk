@@ -8,3 +8,4 @@ exports.JSONK = JSONK;
 jk.addParser('Date', require('./parser/date'));
 jk.addParser('Buffer', require('./parser/buffer'));
 jk.addParser('Error', require('./parser/error'));
+jk.addParser('RegExp', require('./parser/regexp'));

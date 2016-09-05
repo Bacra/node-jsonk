@@ -76,6 +76,14 @@ describe('#parser', function()
 			expect(data2.key.stack).to.contain('Error: errmsg')
 				.contain('Original Stack');
 		});
+
+	});
+
+
+	describe('#regexp', function()
+	{
+		var reg = /\..[1-4]*?$/ig;
+		assertTranslate(reg, {k: 'RegExp', v:reg.toString()});
 	});
 });
 
