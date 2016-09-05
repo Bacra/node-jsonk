@@ -27,11 +27,13 @@ var input = {
 };
 
 var output = {
-	string: 'string',
-	number: 1111,
-	buffer: {
-		k: 'Buffer',
-		v: 'MTIza2V5'
+	data: {
+		string: 'string',
+		number: 1111,
+		buffer: {
+			k: 'Buffer',
+			v: 'MTIza2V5'
+		}
 	}
 };
 
