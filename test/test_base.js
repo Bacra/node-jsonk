@@ -71,4 +71,27 @@ describe('#base', function()
 		expect(jk.parseFromString("{data:{string: 'string'}}"))
 			.to.be.eql({string: 'string'});
 	});
+
+	describe('#stringify wrap info', function()
+	{
+		it('#noparser', function()
+		{
+			var now = Date.now();
+			expect(jk.parse({data: {k: 'Date', v: now}}))
+				.to.be.eql({k: 'Date', v: now});
+		});
+
+
+		it('#outparser', function()
+		{
+			expect(function()
+				{
+					expect(jk.parse({data: {}, parsers: 'not_exists_parser'}));
+				})
+				.to.throwError(function(e)
+				{
+					expect(e.message).to.be('Miss Parser,not_exists_parser');
+				});
+		});
+	});
 });
