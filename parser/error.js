@@ -15,9 +15,15 @@ exports.parse = function parseError(data)
 		}
 	}
 
-	err.stack += ['Original ====']
-		.concat(data.stack)
-		.join('\t\n');
+	Object.defineProperty(err, 'stack',
+		{
+			value: err.stack + ['\n\n==== Original Stack ====']
+				.concat(data.stack)
+				.join('\t\n'),
+			writable: false,
+			enumerable: true,
+			configurable: true
+		});
 
 	return err;
 }
