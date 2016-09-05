@@ -17,13 +17,20 @@ describe('#base', function()
 {
 	it('#stringify', function()
 	{
-		expect(jk.stringify(baseData)).to.be.eql(baseData);
+		expect(jk.stringify(baseData)).to.be.eql(
+			{
+				data: baseData
+			});
 
 		for(var i in baseData)
 		{
 			if (baseData.hasOwnProperty(i))
 			{
-				expect(jk.stringify(baseData[i])).to.be.eql(baseData[i]);
+				expect(jk.stringify(baseData[i]))
+					.to.be.eql(
+					{
+						data: baseData[i]
+					});
 			}
 		}
 	});
@@ -31,19 +38,19 @@ describe('#base', function()
 	it('#escape', function()
 	{
 		expect(jk.stringify({k: '\\', v: {}}))
-			.to.be.eql({k: '\\', v: {k: '\\', v: {}}});
+			.to.be.eql({data: {k: '\\', v: {k: '\\', v: {}}}});
 	});
 
 
 	it('#parse', function()
 	{
-		expect(jk.parse(baseData)).to.be.eql(baseData);
+		expect(jk.parse({data: baseData})).to.be.eql(baseData);
 
 		for(var i in baseData)
 		{
 			if (baseData.hasOwnProperty(i))
 			{
-				expect(jk.parse(baseData[i])).to.be.eql(baseData[i]);
+				expect(jk.parse({data: baseData[i]})).to.be.eql(baseData[i]);
 			}
 		}
 	});
@@ -52,16 +59,16 @@ describe('#base', function()
 	it('#stringifyToString', function()
 	{
 		expect(jk.stringifyToString({string: 'string'}))
-			.to.be("{ string: 'string' }");
+			.to.be("{ data: { string: 'string' } }");
 	});
 
 
 	it('#parseFromString', function()
 	{
-		expect(jk.parseFromString('{"string": "string"}'))
+		expect(jk.parseFromString('{"data":{"string": "string"}}'))
 			.to.be.eql({string: 'string'});
 
-		expect(jk.parseFromString("{string: 'string'}"))
+		expect(jk.parseFromString("{data:{string: 'string'}}"))
 			.to.be.eql({string: 'string'});
 	});
 });
