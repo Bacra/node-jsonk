@@ -47,4 +47,21 @@ describe('#base', function()
 			}
 		}
 	});
+
+
+	it('#stringifyToString', function()
+	{
+		expect(jk.stringifyToString({string: 'string'}))
+			.to.be("{ string: 'string' }");
+	});
+
+
+	it('#parseFromString', function()
+	{
+		expect(jk.parseFromString('{"string": "string"}'))
+			.to.be.eql({string: 'string'});
+
+		expect(jk.parseFromString("{string: 'string'}"))
+			.to.be.eql({string: 'string'});
+	});
 });
