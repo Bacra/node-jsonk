@@ -19,17 +19,18 @@ describe('#base', function()
 	{
 		expect(jk.stringify(baseData)).to.be.eql(
 			{
-				data: baseData
+				jsonk_data: baseData
 			});
 
 		for(var i in baseData)
 		{
 			if (baseData.hasOwnProperty(i))
 			{
+				console.log(i, baseData[i]);
 				expect(jk.stringify(baseData[i]))
 					.to.be.eql(
 					{
-						data: baseData[i]
+						jsonk_data: baseData[i]
 					});
 			}
 		}
@@ -38,19 +39,19 @@ describe('#base', function()
 	it('#escape', function()
 	{
 		expect(jk.stringify({k: '\\', v: {}}))
-			.to.be.eql({data: {k: '\\', v: {k: '\\', v: {}}}});
+			.to.be.eql({jsonk_data: {k: '\\', v: {k: '\\', v: {}}}});
 	});
 
 
 	it('#parse', function()
 	{
-		expect(jk.parse({data: baseData})).to.be.eql(baseData);
+		expect(jk.parse({jsonk_data: baseData})).to.be.eql(baseData);
 
 		for(var i in baseData)
 		{
 			if (baseData.hasOwnProperty(i))
 			{
-				expect(jk.parse({data: baseData[i]})).to.be.eql(baseData[i]);
+				expect(jk.parse({jsonk_data: baseData[i]})).to.be.eql(baseData[i]);
 			}
 		}
 	});
@@ -59,16 +60,16 @@ describe('#base', function()
 	it('#stringifyToString', function()
 	{
 		expect(jk.stringifyToString({string: 'string'}))
-			.to.be("{ data: { string: 'string' } }");
+			.to.be("{ jsonk_data: { string: 'string' } }");
 	});
 
 
 	it('#parseFromString', function()
 	{
-		expect(jk.parseFromString('{"data":{"string": "string"}}'))
+		expect(jk.parseFromString('{"jsonk_data":{"string": "string"}}'))
 			.to.be.eql({string: 'string'});
 
-		expect(jk.parseFromString("{data:{string: 'string'}}"))
+		expect(jk.parseFromString("{jsonk_data:{string: 'string'}}"))
 			.to.be.eql({string: 'string'});
 	});
 
@@ -77,7 +78,7 @@ describe('#base', function()
 		it('#noparser', function()
 		{
 			var now = Date.now();
-			expect(jk.parse({data: {k: 'Date', v: now}}))
+			expect(jk.parse({jsonk_data: {k: 'Date', v: now}}))
 				.to.be.eql({k: 'Date', v: now});
 		});
 
@@ -86,7 +87,7 @@ describe('#base', function()
 		{
 			expect(function()
 				{
-					expect(jk.parse({data: {}, parsers: 'not_exists_parser'}));
+					expect(jk.parse({jsonk_data: {}, parsers: 'not_exists_parser'}));
 				})
 				.to.throwError(function(e)
 				{

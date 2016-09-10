@@ -28,7 +28,7 @@ describe('#parser', function()
 			var data1 = jk.stringify(err);
 			expect(data1.parsers).to.be('Error');
 
-			data1 = data1.data;
+			data1 = data1.jsonk_data;
 			expect(data1.k).to.be('Error');
 			expect(data1.v.message).to.be(err.message);
 			expect(data1.v.errcode).to.be(err.errcode);
@@ -41,7 +41,7 @@ describe('#parser', function()
 			var data2 = jk.stringify({key: err});
 			expect(data2.parsers).to.be('Error');
 
-			data2 = data2.data;
+			data2 = data2.jsonk_data;
 			expect(data2.key.k).to.be('Error');
 			expect(data2.key.v.message).to.be(err.message);
 			expect(data2.key.v.errcode).to.be(err.errcode);
@@ -66,7 +66,7 @@ describe('#parser', function()
 
 			var err1 = {
 				parsers: 'Error',
-				data: err
+				jsonk_data: err
 			};
 
 			var data1 = jk.parse(err1);
@@ -80,7 +80,7 @@ describe('#parser', function()
 
 			var err2 = {
 				parsers: 'Error',
-				data: {key: err}
+				jsonk_data: {key: err}
 			};
 
 			var data2 = jk.parse(err2);
@@ -105,8 +105,8 @@ describe('#parser', function()
 function assertTranslate(data1, data2)
 {
 	var data3 = {key: data1};
-	var data4 = {parsers: data2.k, data: {key: data2}};
-	data2 = {parsers: data2.k, data: data2};
+	var data4 = {parsers: data2.k, jsonk_data: {key: data2}};
+	data2 = {parsers: data2.k, jsonk_data: data2};
 
 	it('#stringify', function()
 	{
