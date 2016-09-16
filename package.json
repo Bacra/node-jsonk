@@ -1,9 +1,10 @@
 {
   "name": "jsonk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Common Extended JSON.",
   "main": "index.js",
   "scripts": {
+    "prepublish": "npm ls",
     "test": "cross-env DEBUG=jsonk* mocha test/test_*",
     "test-cov": "istanbul cover ./node_modules/.bin/_mocha -- test/test_* --reporter dot",
     "test-travis": "istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- test/test_* --reporter dot"
