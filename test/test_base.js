@@ -81,6 +81,7 @@ describe('#base', function()
 		it('#parseType', function()
 		{
 			expect(jk.parseType('Date', now).getTime()).to.be(now);
+			expect(jk.parseType('not_exists_parser', 1111)).to.be(1111);
 		});
 
 		it('#outparser', function()
