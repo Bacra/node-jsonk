@@ -2,7 +2,7 @@
 
 exports.parse = function parseDate(str)
 {
-	return new Date(str);
+	return new Date(isNaN(str) ? str : Number(str));
 }
 
 exports.is = function isDate(obj)
