@@ -9,6 +9,12 @@ describe('#parser', function()
 	{
 		var now = new Date;
 		assertTranslate(now, {k: 'Date', v: +now});
+
+		it ('#nan data', function()
+		{
+			var now = Date.now();
+			expect(jk.parseType('Date', ''+now).getTime()).to.be(now);
+		});
 	});
 
 	describe('#buffer', function()
