@@ -73,6 +73,11 @@ describe('#base', function()
 			expect(jk.parse(baseData)).to.be.eql(baseData.jsonk_data);
 		});
 
+		it('#parseNoWrap', function()
+		{
+			expect(jk.parseNoWrap(baseData.jsonk_data).getTime()).to.be(now);
+		});
+
 		it('#parseType', function()
 		{
 			expect(jk.parseType('Date', now).getTime()).to.be(now);
