@@ -15,11 +15,19 @@ exports.parse = function parseError(data)
 		}
 	}
 
+	var originalStack = data.stack.map(function(line)
+		{
+			if (line.substr(0, 3) == 'at ')
+				return '    '+line;
+			else
+				return '\n'+line;
+		});
+
 	Object.defineProperty(err, 'stack',
 		{
-			value: err.stack + ['\n\n==== Original Stack ====']
-				.concat(data.stack)
-				.join('\t\n'),
+			value: err.stack + ['\n\n==== Original Stack ====\n']
+				.concat(originalStack)
+				.join('\n'),
 			writable: false,
 			enumerable: true,
 			configurable: true
