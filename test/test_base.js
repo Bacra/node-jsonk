@@ -121,5 +121,8 @@ describe('#base', function()
 
 		expect(jk.parseFromString("{jsonk_data:{string: 'string'}}"))
 			.to.be.eql({string: 'string'});
+
+		expect(jk.parseFromString("{jsonk_data:{string: 'string\u2028'}}"))
+			.to.be.eql({string: 'string\u2028'});
 	});
 });
